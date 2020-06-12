@@ -3,6 +3,13 @@
 分享你的代码片段通过npm，让其它的开发者都能够体验到
 
 [English](./README.md)｜中文简体
+
+## npm 包开发示例
+>share-snippets-demo
+* [NPM地址](https://www.npmjs.com/package/share-snippets-demo)
+* [GitHub](https://github.com/ATQQ/share-snippets-demo)
+
+可以clone或者fork项目，然后编写自己的代码片段，发布到[NPM](https://www.npmjs.com/)
 ## 特点
 借助`Share Snippet`无需你开发Snippet插件，就能轻松的让其它人使用你的代码片段
 
@@ -59,6 +66,8 @@
 ### 0.0.1
 * 扫描工作区中`share_snippets`目录下以`.code-snippets`结尾的代码片段文件
 
+### 0.0.2
+* 在README.md中添加share-snippets npm包开发文档和演示
 ---
 ## 未来
 * [ ] 优化重新扫描项目代码片段的指令

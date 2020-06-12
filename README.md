@@ -3,6 +3,13 @@
 Share your code snippets through npm, so other developers can enjoy
 
 English｜[中文简体](./README-zh.md)
+
+## Development Example
+>share-snippets-demo
+* [NPM Address](https://www.npmjs.com/package/share-snippets-demo)
+* [GitHub](https://github.com/ATQQ/share-snippets-demo)
+
+You can clone or fork the project, then write your own code snippet and publish it to [NPM](https://www.npmjs.com/)
 ## Features
 With the help of `Share Snippet`, you can easily let other people use your code snippets without developing Snippet plugins
 
@@ -58,6 +65,8 @@ First you need to press `F1` to open the command input box
 ### 0.0.1
 * Scan the code snippet files ending in `.code-snippets` in the `share_snippets` directory in the workspace
 
+### 0.0.2
+* add share-snippets npm package develop doc and demo in README.md
 ---
 
 ## In The Future
