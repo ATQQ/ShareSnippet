@@ -2,7 +2,7 @@
 	"name": "snippet",
 	"displayName": "Share Snippets",
 	"description": "Share your code snippets through npm, so other developers can enjoy",
-	"version": "0.0.3",
+	"version": "0.0.4",
 	"publisher": "sugar",
 	"repository": {
 		"url": "https://github.com/ATQQ/ShareSnippet",
@@ -29,6 +29,12 @@
 			{
 				"command": "snippet.refresh",
 				"title": "Refresh"
+			}
+		],
+		"snippets": [
+			{
+				"language": "json",
+				"path": "./snippets/template.code-snippets"
 			}
 		]
 	},

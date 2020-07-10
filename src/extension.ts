@@ -66,7 +66,6 @@ export function activate(context: vscode.ExtensionContext) {
 			// 确保是被<tagName 包裹
 			const lastLeftTag = preText.lastIndexOf(`<${tagName}`);
 			const lastRightTag = preText.lastIndexOf('>');
-			console.log(inputWord);
 			if (lastLeftTag > 0 && lastLeftTag > lastRightTag && prefix.startsWith(inputWord)) {
 				let a = new vscode.CompletionItem(prefix, vscode.CompletionItemKind.Snippet);
 				a.detail = description;
