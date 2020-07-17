@@ -1,4 +1,6 @@
 import * as vscode from 'vscode';
+import * as nodePath from 'path';
+import * as nodeFs from 'fs';
 const allTagProperty = 'sp-'; // 提示标签全部属性
 interface Prop {
 	key: string
@@ -6,7 +8,7 @@ interface Prop {
 	description: string
 	required: boolean // 是否必要的属性
 	bind: boolean // 是否以 :param=”xx” 的形式展示
-	hide_value:boolean // 是否展示值选择列表
+	hide_value: boolean // 是否展示值选择列表
 }
 interface CodeSnippet {
 	scope: string, // 支持的语言列表
@@ -21,6 +23,11 @@ interface TagComponent extends CodeSnippet {
 	props: Prop[] // 参数
 	self_closing: boolean // 自闭和
 }
+
+interface TemplateConfig extends CodeSnippet {
+	name: string // 模板名称即prefix
+	ext: string // 文件后缀
+}
 export function activate(context: vscode.ExtensionContext) {
 
 	console.log('Congratulations, your extension "snippet" is now active!');
@@ -29,8 +36,8 @@ export function activate(context: vscode.ExtensionContext) {
 	 * 激活模板片段提示
 	 * @param codeSnippet 片段规则
 	 */
-	function getCodeTemplate(prefix: string, description: string, body: string | string[],documentation?:string) {
-		body  = typeof body === 'object' ? body.join('\n') : body;
+	function getCodeTemplate(prefix: string, description: string, body: string | string[], documentation?: string) {
+		body = typeof body === 'object' ? body.join('\n') : body;
 		documentation = documentation || body; // 没有默认body作为文档
 		return function provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken, context: vscode.CompletionContext) {
 			// 当前行
@@ -52,11 +59,11 @@ export function activate(context: vscode.ExtensionContext) {
 	/**
 	 * 激活组件/标签片段带属性提示
 	 * @param codeSnippet 片段规则
-	 */ 
+	 */
 	function getTagCodeTemplate(prop: Prop, tagName: string) {
-		let { key: prefix, description, bind, value: body,hide_value } = prop;
-		const documentation = hide_value?prefix:`${bind?':':''}${prefix}='${body?.split(',')[0]}'`; // 生成后的内容
-		body = hide_value?prefix:`${bind?':':''}${prefix}='$\{1|${body}|\}'`; // 用于片段的内容
+		let { key: prefix, description, bind, value: body, hide_value } = prop;
+		const documentation = hide_value ? prefix : `${bind ? ':' : ''}${prefix}='${body?.split(',')[0]}'`; // 生成后的内容
+		body = hide_value ? prefix : `${bind ? ':' : ''}${prefix}='$\{1|${body}|\}'`; // 用于片段的内容
 		return function provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken, context: vscode.CompletionContext) {
 			// 当前行
 			const line = document.lineAt(position);
@@ -105,8 +112,62 @@ export function activate(context: vscode.ExtensionContext) {
 			...prefixs));
 	}
 
+	/**
+	 * 激活组件提示配置
+	 * @param v 
+	 */
+	function addTagSnippet(v: TagComponent) {
+		const { scope, name: prefix, description, props, self_closing } = v;
+		const scopes = scope ? scope.split(',') : ['*'];
+		const body = props.filter(p => p?.required).map((p, index) => {
+			let { key, value, bind, hide_value } = p;
+			if (hide_value) {
+				return key;
+			}
+			return `${bind ? ':' : ''}${key}='$\{${index + 1}|${value}|\}'`;
+		}).join(' ');
+		const documentation = props.filter(p => p?.required).map((p, index) => {
+			let { key, value, bind, hide_value } = p;
+			if (hide_value) {
+				return key;
+			}
+			return `${bind ? ':' : ''}${key}='${value.split(',')[0]}'`;
+		}).join(' ');
+		const getTagSting = ((close: boolean, tagName: string) => {
+			return (params: string) => close ? `<${tagName} ${params} />` : `<${tagName} ${params} ></${tagName}>`;
+		})(self_closing, prefix);
+		// 激活模板代码
+		registerCodeSnippet(scopes, [prefix], getCodeTemplate(prefix, description, getTagSting(body), getTagSting(documentation)));
+		// 激活属性提示
+		for (const prop of props) {
+			const { key } = prop;
+			registerCodeSnippet(scopes, [key], getTagCodeTemplate(prop, prefix));
+		}
+	}
 
-
+	/**
+	 * 激活组件提示配置
+	 * @param v 
+	 */
+	function addTemplateFileSnippet(v: TemplateConfig, file: vscode.Uri) {
+		const { scope, name: prefix, description, ext } = v;
+		const scopes = scope ? scope.split(',') : ['*'];
+		const { path } = file;
+		let basename = nodePath.basename(path);
+		basename = basename.substring(0, basename.lastIndexOf('.'));
+		if(basename.endsWith('.snippets')){
+			basename = basename.substring(0, basename.lastIndexOf('.'));
+		}
+		const dirname = nodePath.dirname(path);
+		const fileName = `${dirname}/files/${basename}.${ext}`;
+		nodeFs.readFile(fileName,{encoding:'utf-8'},(err,data)=>{
+			if(err){
+				console.error(`${basename} not find`);
+				return;
+			}
+			registerCodeSnippet(scopes, [prefix], getCodeTemplate(prefix, description, data, data));
+		});
+	}
 	/**
 	 * 扫描所有符合条件的文件
 	 */
@@ -140,33 +201,45 @@ export function activate(context: vscode.ExtensionContext) {
 						let SnippetsObjs: CodeSnippet[] = Object.values(code);
 						SnippetsObjs.forEach(v => {
 							const { type } = v;
+							switch (type) {
+								case 'tag':
+									addTagSnippet(v as TagComponent);
+									break;
+								case 'template':
+									addTemplateFileSnippet(v as TemplateConfig, file);
+									break;
+							}
 							if (type === 'tag') {
-								const { scope, name: prefix, description, props, self_closing } = v as TagComponent;
-								const scopes = scope ? scope.split(',') : ['*'];
-								const body = props.filter(p => p?.required).map((p, index) => {
-									let { key, value, bind,hide_value } = p;
-									if(hide_value){
-										return key;
-									}
-									return `${bind ? ':' : ''}${key}='$\{${index + 1}|${value}|\}'`;
-								}).join(' ');
-								const documentation = props.filter(p => p?.required).map((p, index) => {
-									let { key, value, bind,hide_value } = p;
-									if(hide_value){
-										return key;
-									}
-									return `${bind ? ':' : ''}${key}='${value.split(',')[0]}'`;
-								}).join(' ');
-								const getTagSting = ((close:boolean,tagName:string)=>{
-									return (params:string)=> close ? `<${tagName} ${params} />` : `<${tagName} ${params} ></${tagName}>`;
-								})(self_closing,prefix);
-								// 激活模板代码
-								registerCodeSnippet(scopes, [prefix], getCodeTemplate(prefix, description, getTagSting(body),getTagSting(documentation)));
-								// 激活属性提示
-								for (const prop of props) {
-									const { key } = prop;
-									registerCodeSnippet(scopes, [key], getTagCodeTemplate(prop, prefix));
-								}
+
+							}
+						});
+					} catch (err) {
+						vscode.window.showErrorMessage(`文件${file.path}解析失败`);
+					}
+				});
+			}
+		});
+
+		// 扫描share-snippets
+		vscode.workspace.findFiles('**/**/*.snippets.json').then(files => {
+			console.log(`共扫描到${files.length}个文件`);
+			for (const file of files) {
+				vscode.workspace.fs.readFile(file).then(text => {
+					try {
+						let code = JSON.parse(JSON.stringify(eval("(" + text.toString() + ")")));
+						let SnippetsObjs: CodeSnippet[] = Object.values(code);
+						SnippetsObjs.forEach(v => {
+							const { type } = v;
+							switch (type) {
+								case 'tag':
+									addTagSnippet(v as TagComponent);
+									break;
+								case 'template':
+									addTemplateFileSnippet(v as TemplateConfig, file);
+									break;
+							}
+							if (type === 'tag') {
+
 							}
 						});
 					} catch (err) {
