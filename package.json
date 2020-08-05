@@ -2,7 +2,7 @@
 	"name": "snippet",
 	"displayName": "Share Snippets",
 	"description": "Share your code snippets through npm, so other developers can enjoy",
-	"version": "0.0.7",
+	"version": "0.1.0",
 	"publisher": "sugar",
 	"repository": {
 		"url": "https://github.com/ATQQ/ShareSnippet",
@@ -45,9 +45,9 @@
 		"watch": "tsc -watch -p ./",
 		"pretest": "npm run compile && npm run lint",
 		"test": "node ./out/test/runTest.js",
-		"build":"vsce package",
-		"publish":"vsce publish",
-		"publish:minor":"vsce publish minor"
+		"build": "vsce package",
+		"publish": "vsce publish",
+		"publish:minor": "vsce publish minor"
 	},
 	"devDependencies": {
 		"@types/vscode": "^1.40.0",
