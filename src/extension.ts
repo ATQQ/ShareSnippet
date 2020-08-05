@@ -26,7 +26,7 @@ interface TagComponent extends CodeSnippet {
 
 interface TemplateConfig extends CodeSnippet {
 	name: string // 模板名称即prefix
-	ext: string // 文件后缀
+	path: string // 文件路径
 }
 export function activate(context: vscode.ExtensionContext) {
 
@@ -150,19 +150,14 @@ export function activate(context: vscode.ExtensionContext) {
 	 * @param v 
 	 */
 	function addTemplateFileSnippet(v: TemplateConfig, file: vscode.Uri) {
-		const { scope, name: prefix, description, ext } = v;
+		const { scope, name: prefix, description, path: filePath } = v;
 		const scopes = scope ? scope.split(',') : ['*'];
 		const { path } = file;
-		let basename = nodePath.basename(path);
-		basename = basename.substring(0, basename.lastIndexOf('.'));
-		if(basename.endsWith('.snippets')){
-			basename = basename.substring(0, basename.lastIndexOf('.'));
-		}
 		const dirname = nodePath.dirname(path);
-		const fileName = `${dirname}/files/${basename}.${ext}`;
-		nodeFs.readFile(fileName,{encoding:'utf-8'},(err,data)=>{
-			if(err){
-				console.error(`${basename} not find`);
+		const fileName = nodePath.resolve(dirname, filePath);
+		nodeFs.readFile(fileName, { encoding: 'utf-8' }, (err, data) => {
+			if (err) {
+				console.error(`${fileName} not find`);
 				return;
 			}
 			registerCodeSnippet(scopes, [prefix], getCodeTemplate(prefix, description, data, data));

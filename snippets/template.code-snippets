@@ -1,45 +1,44 @@
 {
-    "snippet template": {
+    "share_snippets tag template": {
         "scope": "json",
-        "prefix": "snip-temp",
+        "prefix": "ss-tag",
         "body": [
             "{",
             "    \"snippet name\": {",
-            "        \"scope\": \"language\",",
-            "        \"prefix\": \"prefix\",",
-            "        \"body\": [\"template context\"],",
-            "        \"description\": \"code-snippets template\"",
-            "    }",
-            "}"
-        ],
-        "description": "code-snippets template"
-    },
-    "share_snippets template": {
-        "scope": "json",
-        "prefix": "snip-share",
-        "body": [
-            "{",
-            "    \"snippet name\": {",
-            "        \"scope\": \"vue\",",
             "        \"type\": \"tag\",",
-            "        \"description\": \"my diy component\",",
-            "        \"name\": \"component-name\",",
+            "        \"scope\": \"js,vue,ts,tsx,jsx\",",
+            "        \"description\": \"\",",
+            "        \"name\": \"\",",
+            "        \"self_closing\": false,",
             "        \"props\": [",
             "            {",
-            "                \"key\": \"type1\",",
-            "                \"value\": \"value1,value2,value3\",",
-            "                \"description\": \"自定义属性1\",",
-            "                \"required\":\"1\"",
-            "            },",
-            "            {",
-            "                \"key\": \"type2\",",
-            "                \"value\": \"value1,value2,value3\",",
-            "                \"description\": \"自定义属性2\"",
+            "                \"key\": \"\",",
+            "                \"value\": \"\",",
+            "                \"description\": \"\",",
+            "                \"required\": false,",
+            "                \"bind\": false,",
+            "                \"hide_value\": false",
             "            }",
             "        ]",
             "    }",
             "}"
         ],
-        "description": "share-snippets template"
+        "description": "share_snippets tag template"
+    },
+    "share_snippets file template": {
+        "scope": "json",
+        "prefix": "ss-file",
+        "body": [
+            "{",
+            "    \"snippet name\": {",
+            "        \"type\": \"template\",",
+            "        \"scope\": \"js,vue,ts,tsx,jsx\",",
+            "        \"description\": \"\",",
+            "        \"name\": \"\",",
+            "        \"path\":\"./files/xxx\"",
+            "    }",
+            "}"
+        ],
+        "description": "share_snippets file template"
     },
 }
