@@ -189,6 +189,7 @@ Full attribute example display
 ```
 
 **Property details**
+
 |     Name     |   Type   |                Description                |    Value range\|Explanation    |           Example           | required |
 | :----------: | :------: | :---------------------------------------: | :----------------------------: | :-------------------------: | :------: |
 | snippet name |  string  |               Snippet name                |               -                |        "snippet":""         |    √     |
@@ -203,6 +204,7 @@ Full attribute example display
 |    props     | object[] |           Component properties            |        See table below         |              -              |    -     |
 
 **Introduction to props**
+
 |    Name     |  Type   |                Description                 | Value range\|Explanation |               Example               | required |
 | :---------: | :-----: | :----------------------------------------: | :----------------------: | :---------------------------------: | :------: |
 |     key     | string  |               Property name                |            -             |            "key":"input"            |    √     |
@@ -226,23 +228,21 @@ First, you need to press `F1` to open the command input box
 | ss-tag  |     json     | Generate component code snippet template |
 
 ## Update log
-### 0.0.1
+### <0.1.0
 * Scan the code snippet files ending with `.code-snippets` in the `share_snippets` directory in the workspace
-
-### 0.0.2
 * Add share-snippets npm package development documentation and demo in README.md
-
-### 0.0.3
 * Added support for .share-snippets files
    * Support attribute prompt of tag snippet
-
-### 0.0.6
 * Support .snippets.json file, more friendly to write
 * Plug-in built-in snippets template prompt-write rules faster
 * Support template file import through relative path
 
-### 0.0.7
+### 0.1.0
 * Improve documentation
+
+### 0.1.1
+* Improve documentation
+
 ---
 ## Future
 * Optimize the instruction of rescanning project code snippets

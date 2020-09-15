@@ -188,6 +188,7 @@ import { defineComponent, reactive, ref, onMounted, computed } from '@vue/compos
 ```
 
 **属性详细介绍**
+
 |     名称     |   类型   |          描述          |    值范围\|解释    |            举例             | 是否必填 |
 | :----------: | :------: | :--------------------: | :----------------: | :-------------------------: | :------: |
 | snippet name |  string  |        片段名称        |         -          |        "snippet":""         |    √     |
@@ -202,6 +203,8 @@ import { defineComponent, reactive, ref, onMounted, computed } from '@vue/compos
 |    props     | object[] |        组件属性        |       见下表       |              -              |    -     |
 
 **props的属性介绍**
+
+
 |    名称     |  类型   |          描述          | 值范围\|解释 |            举例            | 是否必填 |
 | :---------: | :-----: | :--------------------: | :----------: | :------------------------: | :------: |
 |     key     | string  |        属性名称        |      -       |       "key":"input"        |    √     |
@@ -225,23 +228,21 @@ import { defineComponent, reactive, ref, onMounted, computed } from '@vue/compos
 |  ss-tag  |   json   | 生成组件代码snippet模板 |
 
 ## 更新日志
-### 0.0.1
+### <0.1.0
 * 扫描工作区中`share_snippets`目录下以`.code-snippets`结尾的代码片段文件
-
-### 0.0.2
 * 在README.md中添加share-snippets npm包开发文档和演示
-
-### 0.0.3
 * 新增.share-snippets文件支持
   * 支持标签snippet的属性提示
-
-### 0.0.6
 * 支持.snippets.json文件，编写更友好
 * 插件内置snippets模板提示-编写规则更迅速
 * 支持模板文件通过相对路径引入
 
-### 0.0.7
+### 0.1.0
 * 完善文档
+
+### 0.1.1
+* 完善首页README文档
+
 ---
 ## 未来
 * [ ] 优化重新扫描项目代码片段的指令
