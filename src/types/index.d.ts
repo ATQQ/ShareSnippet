@@ -23,7 +23,11 @@ export interface TagComponent extends CodeSnippet {
 
 export interface TemplateConfig extends CodeSnippet {
 	name: string // 模板名称即prefix
-	path: string // 文件路径
+	/**
+	 * 模板文件的相对路径
+	 */
+	path: string
 }
 export type languageType = 'vue' | 'react';
 export type snippetType = 'tag' | 'template' | 'component';
+export type componentType = 'tag' | 'vue' | 'react';

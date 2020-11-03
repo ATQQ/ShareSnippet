@@ -225,7 +225,7 @@ import { defineComponent, reactive, ref, onMounted, computed } from '@vue/compos
 | 触发前缀 | 生效范围 |          作用           |
 | :------: | :------: | :---------------------: |
 | ss-file  |   json   | 生成模板代码snippet模板 |
-|  ss-tag  |   json   | 生成组件代码snippet模板 |
+|  ss-tag  |   json   | 生成通用组件代码snippet模板 |
 
 ## 更新日志
 ### <0.1.0

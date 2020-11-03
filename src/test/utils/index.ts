@@ -1,3 +1,1 @@
-import {mergeStringArr} from './../../utils';
-
-console.log(mergeStringArr(['js','ts','javascript'],['javascript','typescript']));
+// TODO 补全单测
