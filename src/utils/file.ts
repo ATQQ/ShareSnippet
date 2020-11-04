@@ -93,10 +93,7 @@ function registerCodeSnippet(scope: string[], prefixs: string[], provideCompleti
  */
 function registerTagSnippet(v: TagComponent) {
     const { scope, name: prefix, description, props } = v;
-    const scopes = ['html'];
-    // TODO: have a bug
-    console.log(mergeStringArr(parseScope(scope),['html'], vueScope, reactScope));
-    console.log(scopes);
+    const scopes = mergeStringArr(parseScope(scope),['html'], vueScope, reactScope);
     const body = getComponentBody(v, 'tag');
     const documentation = getComponentBody(v, 'tag', true);
     // 激活模板代码

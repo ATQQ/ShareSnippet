@@ -20,8 +20,7 @@ const defaultScopes = ['javascript', 'typescript', 'vue', 'javascriptreact', 'ty
  * @param scope 配置的支持的语言列表
  */
 export function parseScope(scope: string) {
-    scope = scope.trim();
-    return (scope && scope !== '*') ? scope.split(',') : defaultScopes;
+    return (scope && scope.trim() !== '*') ? scope.split(',') : defaultScopes;
 }
 
 /**
