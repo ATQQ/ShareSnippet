@@ -2,7 +2,7 @@ import * as vscode from 'vscode';
 import * as nodePath from 'path';
 import * as nodeFs from 'fs';
 import { mergeStringArr, parseJsonFileContent, parseScope, matchPrefix } from './index';
-import { Prop, TagComponent, TemplateConfig, languageType, CodeSnippet, componentType } from './../types';
+import { Prop, TagComponent, TemplateConfig, CodeSnippet, componentType } from './../types';
 const allTagProperty = 'sp-'; // 提示标签全部属性
 let context = {} as vscode.ExtensionContext;
 const vueScope = ['vue'];
@@ -93,7 +93,7 @@ function registerCodeSnippet(scope: string[], prefixs: string[], provideCompleti
  */
 function registerTagSnippet(v: TagComponent) {
     const { scope, name: prefix, description, props } = v;
-    const scopes = mergeStringArr(parseScope(scope),['html'], vueScope, reactScope);
+    const scopes = mergeStringArr(parseScope(scope), ['html'], vueScope, reactScope);
     const body = getComponentBody(v, 'tag');
     const documentation = getComponentBody(v, 'tag', true);
     // 激活模板代码
@@ -229,21 +229,24 @@ function registerSnippetsFiles(files: vscode.Uri[]) {
                 snippets.forEach(snippet => {
                     const { type } = snippet;
                     switch (type) {
-                        case 'tag':
-                            registerTagSnippet(snippet as TagComponent);
-                            break;
                         case 'template':
                             registerTemplateSnippet(snippet as TemplateConfig, file);
                             break;
                         case 'component':
                             const t = snippet as TagComponent;
-                            if (t.language === 'react') {
+                            const { language } = t
+                            if (language === 'react') {
                                 registerReactComponent(t);
                             }
-                            if (t.language === 'vue') {
+                            if (language === 'vue') {
                                 registerVueComponent(snippet as TagComponent);
                             }
+                            if (language === 'tag') {
+                                registerTagSnippet(snippet as TagComponent);
+                            }
                             break;
+                        default:
+                            console.error('please check component type');
                     }
                 });
             } catch (err) {

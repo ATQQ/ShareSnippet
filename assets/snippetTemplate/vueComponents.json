@@ -22,11 +22,6 @@
                 "hide_value":true
             },
             {
-                "key":"clearable",
-                "description":"可清空",
-                "hide_value": true
-            },
-            {
                 "key":"type",
                 "value":"text,number,email",
                 "description":"输入框类型"

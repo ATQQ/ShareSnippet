@@ -18,7 +18,7 @@ export interface TagComponent extends CodeSnippet {
 	name: string // 组件名称
 	props: Prop[] // 参数
 	self_closing: boolean // 自闭和
-	language: languageType
+	language: componentType
 }
 
 export interface TemplateConfig extends CodeSnippet {
@@ -28,6 +28,5 @@ export interface TemplateConfig extends CodeSnippet {
 	 */
 	path: string
 }
-export type languageType = 'vue' | 'react';
-export type snippetType = 'tag' | 'template' | 'component';
+export type snippetType = 'template' | 'component';
 export type componentType = 'tag' | 'vue' | 'react';
