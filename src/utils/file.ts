@@ -1,6 +1,5 @@
 import * as vscode from 'vscode';
 import * as nodePath from 'path';
-import * as nodeFs from 'fs';
 import { mergeStringArr, parseJsonFileContent, parseScope, matchPrefix } from './index';
 import { Prop, TagComponent, TemplateConfig, CodeSnippet, componentType } from './../types';
 const allTagProperty = 'sp-'; // 提示标签全部属性
@@ -205,12 +204,9 @@ function registerTemplateSnippet(tempConfig: TemplateConfig, file: vscode.Uri) {
     const scopes = parseScope(scope);
     const { path: filepath } = file;
     const dirname = nodePath.dirname(filepath);
-    const path = nodePath.resolve(dirname, relativePath);
-    nodeFs.readFile(path, { encoding: 'utf-8' }, (err, data) => {
-        if (err) {
-            console.error(`${path} not find`);
-            return;
-        }
+    const path = vscode.Uri.file(nodePath.join(dirname, relativePath));
+    vscode.workspace.fs.readFile(path).then(text => {
+        const data = text.toString();
         registerCodeSnippet(scopes, [prefix], getCodeTemplate(prefix, description, data, data));
     });
 }
@@ -234,7 +230,7 @@ function registerSnippetsFiles(files: vscode.Uri[]) {
                             break;
                         case 'component':
                             const t = snippet as TagComponent;
-                            const { language } = t
+                            const { language } = t;
                             if (language === 'react') {
                                 registerReactComponent(t);
                             }
