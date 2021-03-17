@@ -47,7 +47,8 @@
 		"test": "jest ./src/test/utils/**/*.js",
 		"build": "vsce package",
 		"publish": "vsce publish",
-		"publish:minor": "vsce publish minor"
+		"publish:minor": "vsce publish minor",
+		"publish:patch": "vsce publish patch"
 	},
 	"devDependencies": {
 		"@types/glob": "^7.1.1",
