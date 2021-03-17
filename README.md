@@ -225,29 +225,6 @@ import { defineComponent, reactive, ref, onMounted, computed } from '@vue/compos
 |  ss-vue  |   json   |  生成vue组件代码snippet模板  |
 | ss-react |   json   | 生成react组件代码snippet模板 |
 
-## 更新日志
-### v1.0.0
-* 目路重构
-* 支持react组件
-* 优化源码结构
-
-### <0.1.0
-* 扫描工作区中`share_snippets`目录下以`.code-snippets`结尾的代码片段文件
-* 在README.md中添加share-snippets npm包开发文档和演示
-* 新增.share-snippets文件支持
-  * 支持标签snippet的属性提示
-* 支持.snippets.json文件，编写更友好
-* 插件内置snippets模板提示-编写规则更迅速
-* 支持模板文件通过相对路径引入
-
-### 0.1.0
-* 完善文档
-
-### 0.1.1
-* 完善首页README文档
-
----
-
 ## 未来
 * [x] 优化重新扫描项目代码片段的指令
 * [x] 加入可配置文件，优化片段代码中冗余的`scope`内容

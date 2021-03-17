@@ -222,28 +222,13 @@ First, you need to press `F1` to open the command input box
 | Refresh | Rescan fragment files in the project |
 
 ## Snippet
-| prefix  | effect range |               description                |
-| :-----: | :----------: | :--------------------------------------: |
-| ss-file |     json     | Generate template code snippet template  |
-| ss-tag  |     json     | Generate component code snippet template |
+|  prefix  | effect range |                  description                   |
+| :------: | :----------: | :--------------------------------------------: |
+| ss-file  |     json     |    Generate template code snippet template     |
+|  ss-tag  |     json     |     Generate h5 tag code snippet template      |
+|  ss-vue  |     json     |  Generate vue component code snippet template  |
+| ss-react |     json     | Generate react component code snippet template |
 
-## Update log
-### <0.1.0
-* Scan the code snippet files ending with `.code-snippets` in the `share_snippets` directory in the workspace
-* Add share-snippets npm package development documentation and demo in README.md
-* Added support for .share-snippets files
-   * Support attribute prompt of tag snippet
-* Support .snippets.json file, more friendly to write
-* Plug-in built-in snippets template prompt-write rules faster
-* Support template file import through relative path
-
-### 0.1.0
-* Improve documentation
-
-### 0.1.1
-* Improve documentation
-
----
 ## Future
 * Optimize the instruction of rescanning project code snippets
 * Add configurable files to optimize redundant `scope` content in fragment code
