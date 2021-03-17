@@ -2,7 +2,7 @@
 	"name": "snippet",
 	"displayName": "Share Snippets",
 	"description": "Share your code snippets through npm, so other developers can enjoy",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"publisher": "sugar",
 	"repository": {
 		"url": "https://github.com/ATQQ/ShareSnippet",
