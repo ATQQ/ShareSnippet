@@ -221,6 +221,7 @@ First, you need to press `F1` to open the command input box
 | :-----: | :----------------------------------: |
 | Refresh | Rescan fragment files in the project |
 
+![图片](https://img.cdn.sugarat.top/mdImg/MTYxOTU4MjczMzA0OA==619582733048)
 ## Snippet
 |  prefix  | effect range |                  description                   |
 | :------: | :----------: | :--------------------------------------------: |

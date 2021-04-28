@@ -213,9 +213,11 @@ import { defineComponent, reactive, ref, onMounted, computed } from '@vue/compos
 ## 指令
 首先需要按`F1`打开命令输入框
 
-| 指令名称 |           作用           |
-| :------: | :----------------------: |
-| Refresh  | 重新扫描项目中的片段文件 |
+|  指令名称  |           作用           |
+| :--------: | :----------------------: |
+| SP Refresh | 重新扫描项目中的片段文件 |
+
+![图片](https://img.cdn.sugarat.top/mdImg/MTYxOTU4MjczMzA0OA==619582733048)
 
 ## 内置snippet
 | 触发前缀 | 生效范围 |             作用             |

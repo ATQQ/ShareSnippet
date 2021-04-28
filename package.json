@@ -4,6 +4,7 @@
 	"description": "Share your code snippets through npm, so other developers can enjoy",
 	"version": "1.0.1",
 	"publisher": "sugar",
+	"icon": "assets/img/logo.png",
 	"repository": {
 		"url": "https://github.com/ATQQ/ShareSnippet",
 		"directory": "/",
@@ -28,7 +29,7 @@
 		"commands": [
 			{
 				"command": "snippet.refresh",
-				"title": "Refresh"
+				"title": "SP Refresh"
 			}
 		],
 		"snippets": [

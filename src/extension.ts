@@ -6,8 +6,11 @@ export function activate(context: vscode.ExtensionContext) {
 	scanSnippets(context);
 	
 	let disposable = vscode.commands.registerCommand('snippet.refresh', () => {
+		// 将原有Snippet取消注册重新扫描
+		const oldSnippets = context.subscriptions.splice(1,context.subscriptions.length-1);
+		oldSnippets.forEach(s=>s.dispose());
 		scanSnippets(context);
-		vscode.window.showInformationMessage('refresh snippet success!');
+		vscode.window.showInformationMessage('refresh Share Snippets success!');
 	});
 	
 	// 注册命令

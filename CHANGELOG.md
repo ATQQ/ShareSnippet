@@ -1,4 +1,9 @@
 # 更新日志
+
+## v1.0.2
+* change: 刷新指令变为 SP Refresh
+* feat: 刷新后清理旧的snippet
+* feat: 加入logo
 ## v1.0.1
 * 修复windows下模板snippet失效的问题
 ## v1.0.0

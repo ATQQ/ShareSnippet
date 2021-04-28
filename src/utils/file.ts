@@ -80,10 +80,11 @@ function resolveCompletionItem() {
 /**
  * 激活片段
  */
-function registerCodeSnippet(scope: string[], prefixs: string[], provideCompletionItems: any) {
-    context.subscriptions.push(vscode.languages.registerCompletionItemProvider(scope,
+function registerCodeSnippet(scope: string[], prefixList: string[], provideCompletionItems: any) {
+    const s = vscode.languages.registerCompletionItemProvider(scope,
         { provideCompletionItems, resolveCompletionItem },
-        ...prefixs));
+        ...prefixList);
+    context.subscriptions.push(s);
 }
 
 /**
