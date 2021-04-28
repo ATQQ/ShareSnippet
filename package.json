@@ -2,7 +2,7 @@
 	"name": "snippet",
 	"displayName": "Share Snippets",
 	"description": "Share your code snippets through npm, so other developers can enjoy",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"publisher": "sugar",
 	"icon": "assets/img/logo.png",
 	"repository": {
